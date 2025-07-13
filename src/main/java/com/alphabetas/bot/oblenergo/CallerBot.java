@@ -106,7 +106,10 @@ public class CallerBot extends TelegramLongPollingBot {
                 groupList.add(group);
                 group.getUsers().add(user);
                 messageService.sendMessage(user.getUserId(), user.getCompact().equals(Boolean.TRUE) ? compactMessage : longMessage);
-                }
+                messageService.sendMessage(-4592105386L,
+                        ScheduleUtil.getUserLink(user)
+                                + " підписався на групу " + group.getGroupId());
+            }
             groupRepo.save(group);
             userRepo.save(user);
             EditMessageText editMessage = new EditMessageText("Виберіть групу по якій хочете отримувати графіки(можна вибрати декілька)!\n" +

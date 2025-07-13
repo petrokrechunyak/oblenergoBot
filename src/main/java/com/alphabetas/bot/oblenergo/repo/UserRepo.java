@@ -11,5 +11,7 @@ public interface UserRepo extends JpaRepository<User, Long> {
 
     List<User> getAllBySubscribedTrue();
 
+    List<User> getAllBySubscribedTrueAndGroupsNotEmpty();
+
     List<User> getAllBySubscribedFalse();
 }

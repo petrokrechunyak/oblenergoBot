@@ -13,6 +13,8 @@ import org.telegram.telegrambots.meta.api.objects.File;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.util.concurrent.CompletableFuture;
+
 public class MessageServiceImpl implements MessageService {
     private CallerBot bot;
 
@@ -21,17 +23,17 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public Message sendMessage(Long chatId, String message) {
+    public CompletableFuture<Message> sendMessage(Long chatId, String message) {
         SendMessage sendMessage = new SendMessage(chatId.toString(), message);
         sendMessage.enableHtml(true);
 
         try {
-            return bot.execute(sendMessage);
+            return bot.executeAsync(sendMessage);
         } catch (TelegramApiException e) {
             e.printStackTrace();
             Message returnMessage = new Message();
             returnMessage.setText(e.getMessage());
-            return returnMessage;
+            return CompletableFuture.completedFuture(returnMessage);
         }
     }
 

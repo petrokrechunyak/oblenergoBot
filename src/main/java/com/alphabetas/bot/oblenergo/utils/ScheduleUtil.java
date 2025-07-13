@@ -243,14 +243,14 @@ public class ScheduleUtil {
     }
 
     private static void sendMessageToUser(User user, String message) {
-        Message result;
-        result = messageService.sendMessage(user.getUserId(), message);
-        if (result.getText().contains("[403]")) {
-            if (user.getSubscribed()) {
-                user.setSubscribed(false);
-
+        messageService.sendMessage(user.getUserId(), message).thenAccept(result -> {
+            if (result.getText().contains("[403]")) {
+                if (user.getSubscribed()) {
+                    user.setSubscribed(false);
+                    messageService.sendMessage(-4592105386L, getUserLink(user) + " - кинув бота в чс((");
+                }
             }
-        }
+        });
     }
 
     public static String getUserLink(User user) {

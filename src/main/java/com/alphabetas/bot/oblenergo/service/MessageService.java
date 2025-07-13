@@ -8,6 +8,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.objects.File;
 import org.telegram.telegrambots.meta.api.objects.Message;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * Sends, edits and deletes messages by different ways
  */
@@ -22,7 +24,7 @@ public interface MessageService {
      * {@link SendMessage} object creates automatically, with html parsing - true
      *
      */
-    Message sendMessage(Long chatId, String message);
+    CompletableFuture<Message> sendMessage(Long chatId, String message);
 
     /**
      * @param sendMessage {@link SendMessage} object that need to be sent
