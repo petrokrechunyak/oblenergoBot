@@ -13,7 +13,7 @@ public class CommandContainer {
     private final MessageService messageService;
 
     // All Commands
-    Command start, stop, unknown;
+    Command start, stop, unknown, stats, say, refresh, support;
 
     public CommandContainer(MessageService messageService, UserRepo userRepo, GroupRepo groupRepo) {
         this.commands = new HashMap<>();
@@ -21,16 +21,24 @@ public class CommandContainer {
 
         start = new StartCommand(messageService, userRepo);
         stop = new StopCommand(messageService, userRepo);
+        stats = new StatsCommand(messageService, userRepo);
+        say = new SayCommand(messageService, userRepo);
+        refresh = new RefreshCommand(messageService, userRepo, groupRepo);
         unknown = new UnknownCommand();
+        support = new SupportCommand(messageService);
 
         new ScheduleUtil(messageService, userRepo, groupRepo);
 
         commands.put("/start", start);
         commands.put("/stop", stop);
+        commands.put("/stats", stats);
+        commands.put("/say", say);
+        commands.put("/refresh", refresh);
+        commands.put("/support", support);
     }
 
     public Command retrieveCommand(String command){
-            return commands.getOrDefault(command.split("[ @]")[0].toLowerCase(), unknown);
+        return commands.getOrDefault(command.split("[ @]")[0].toLowerCase(), unknown);
     }
 
 }

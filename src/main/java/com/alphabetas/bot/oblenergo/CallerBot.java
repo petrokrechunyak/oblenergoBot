@@ -57,7 +57,16 @@ public class CallerBot extends TelegramLongPollingBot {
         this.container = new CommandContainer(messageService, userRepo, groupRepo);
 
         prepareUser(userRepo);
+        prepareGroups();
         Group g = groupRepo.findById(2).get();
+    }
+
+    private void prepareGroups() {
+        if(groupRepo.findAll().isEmpty()) {
+            for(int i = 1; i <= GROUPS_NUMBER; i++) {
+                groupRepo.save(new Group(i, "з".repeat(48)));
+            }
+        }
     }
 
     @Override

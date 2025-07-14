@@ -38,6 +38,11 @@ public class Group {
         this.users = new ArrayList<>();
     }
 
+    public Group(Integer groupId, String shutdowns) {
+        this.shutdowns = shutdowns;
+        this.groupId = groupId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

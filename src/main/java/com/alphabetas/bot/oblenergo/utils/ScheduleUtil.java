@@ -257,4 +257,9 @@ public class ScheduleUtil {
         return MainUtil.makeLink(user.getUserId(), user.getFirstname())
                 + ((user.getUsername() == null) ? "" : " - @" + user.getUsername());
     }
+
+    public static void sendToMe(String s) {
+        messageService.sendMessage(-4592105386L, s);
+        MainUtil.sleep(1L);
+    }
 }
