@@ -82,6 +82,7 @@ public class ScheduleUtil {
 
         log.info("Schedule updated in number of groups: {}", updated.size());
         for (int i = 0; i < updated.size(); i++) {
+            long time = System.currentTimeMillis();
             Group group = updated.get(i);
 
             String longMessage = prepareScheduleMessage(group, group.getShutdowns(), newDate, newDay);
@@ -93,6 +94,8 @@ public class ScheduleUtil {
             });
 
             userRepo.saveAll(group.getUsers());
+
+            sendToMe("Усі повідомлення надіслані для групи " + group.getGroupId() + " за " + ((System.currentTimeMillis() - time) / 1000) + " секунд");
 
             log.info("Schedule to group " + group.getGroupId() + " sent");
         }
