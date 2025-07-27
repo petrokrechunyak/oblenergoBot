@@ -95,7 +95,7 @@ public class ScheduleUtil {
 
             userRepo.saveAll(group.getUsers());
 
-            sendToMe("Усі повідомлення надіслані для групи " + group.getGroupId() + " за " + ((System.currentTimeMillis() - time) / 1000) + " секунд");
+            sendToMe("Усі повідомлення надіслані для групи " + group.getGroupId() + " за " + (System.currentTimeMillis() - time / 1000) + " мілісекунд");
 
             log.info("Schedule to group " + group.getGroupId() + " sent");
         }
