@@ -95,7 +95,15 @@ public class MainUtil {
         File file = new File(path);
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             return reader.readLine();
-        } catch (IOException e) {
+        }catch (FileNotFoundException e) {
+            try {
+                file.createNewFile();
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            return "no date";
+        }
+        catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
